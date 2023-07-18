@@ -8,7 +8,7 @@ public class TextGameManager : MonoBehaviour
     public TextMeshProUGUI storyTextMeshPro, HPValueTextMeshPro, STAValueTextMeshPro;
     public string storyText;
     public int HPValue, STAValue;
-    public GameObject TitleScreen, TextBox, HPSTA, Level1, Level2, Logo, Sword;
+    public GameObject TitleScreen, Title, TextBox, HPSTA, Level1, Level2, TryAgain, Logo, Sword, GameOv;
 
 
     // Start is called before the first frame update
@@ -25,16 +25,32 @@ public class TextGameManager : MonoBehaviour
         STAValueTextMeshPro.text = STAValue.ToString();
     }
 
+    //TITLE MENU
+    public void TitleMenu()
+    {
+        HPSTA.SetActive(false);
+        TextBox.SetActive(false);
+        Level1.SetActive(false);
+        Level2.SetActive(false);
+        TryAgain.SetActive(false); 
+        GameOv.SetActive(false);
+        TitleScreen.SetActive(true);
+        Title.SetActive(true);
+        Logo.SetActive(true);
+        storyText = "";
+    }
+
     //START MENU
     public void Startbtn()
     {
         TitleScreen.SetActive(false);
+        Title.SetActive(false);
         Logo.SetActive(false);
         TextBox.SetActive(true);
         HPSTA.SetActive(true);
         Level1.SetActive(true);
         Sword.SetActive(true);
-        storyText = "Lying on the cold floor was once your sword. As you observe it, it has been corrupted with only half of it being usable.";
+        storyText = "You wake up on the ground, in pain and alone. Lying on the cold floor was once your sword, it's blade has been decayed by gloom from your previous adventures.";
     }
 
     public void Exitbtn()
@@ -45,11 +61,11 @@ public class TextGameManager : MonoBehaviour
     //LEVEL 1
     public void PickUpSword()
     {
-        storyText = "You obtained a half-corrupted sword that whispers to you, 'You've done well'. \n You obtained 5 health.";
-        HPValue += 5;
+        storyText = "You obtained your half-decayed sword that whispers to you, 'You've done well'. \nYou obtained 4 health.";
+        HPValue += 4;
         Level1.SetActive(false);
-        Level2.SetActive(true);
         Sword.SetActive(false);
+        Level2.SetActive(true);
         storyText = "You find yourself outside the cave you were in. To your left, a long river invites you. To your right, a deep cave. In front of you, a snowy area.";
 
     }
@@ -58,26 +74,31 @@ public class TextGameManager : MonoBehaviour
     {
         storyText = "You left the sword alone. You leave the area with no weapon.";
         Level1.SetActive(false);
+        Sword.SetActive(false);
         Level2.SetActive(true);
         storyText = "You find yourself outside the cave you were in. To your left, a long river invites you. To your right, a deep cave. In front of you, a snowy area.";
     }
 
     public void DestroySword()
     {
-        storyText = "The spirit of the sword has cursed you for destroying the sword. \n You Died.";
+        storyText = "The spirit of the sword has cursed you for destroying the sword. \nYou Died.";
+        Sword.SetActive(false);
+        GameOv.SetActive(true);
         HPValue = 0;
         STAValue = 0;
         Level1.SetActive(false);
+        TryAgain.SetActive(true);
     }
 
     //LEVEL 2
 
     public void CrosstheRiver()
     {
-        storyText = "Once you cross the river, you're  shivering cold. Your body is wet and tired from swimming. \n You lost 5 health and 5 stamina.";
-        HPValue -= 5;
-        STAValue -= 5;
+        storyText = "Once you cross the river, you're shivering cold. Your body is wet and tired from swimming. Despite this, you've arrived at the Temple of Time and finished your mission.";
+        HPValue -= 3;
+        STAValue -= 3;
         Level2.SetActive(false);
+        TryAgain.SetActive(true);
     }
 
     public void SnowyArea()
